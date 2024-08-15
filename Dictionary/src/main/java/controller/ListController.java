@@ -53,7 +53,10 @@ public class ListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        String uri = request.getRequestURI();
+        if(uri.contains("List")){
+            request.getRequestDispatcher("/List.jsp").forward(request, response);
+        }
     } 
 
     /** 
