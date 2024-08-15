@@ -4,6 +4,9 @@
     Author     : NHAT
 --%>
 
+<%@page import="dao.IOStream"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.Dictionary"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -20,15 +23,22 @@
                 <th>Eng</th>
                 <th>Vn</th>
             </tr>
-            <c:set var="i" value="1"/>
-            <c:forEach var="dict" items="${requestScope.dictList}">
-                <tr>
-                    <td>${i}</td>
-                    <td>${dict.Eng}</td>
-                    <td>${dict.Vn}</td>
-                    <c:set var="i" value="${i+1}"/>
-                </tr>
-            </c:forEach>
+            
+            <%
+                IOStream io = new IOStream();
+                int a = io.Trigger();
+            ArrayList<Dictionary> dict = new ArrayList<>();
+            dict = (ArrayList<Dictionary>)session.getAttribute("dictList");
+            for(int i = 1; i <= dict.size(); i ++){
+            %>
+            <tr>
+                <td><%= i %></td>
+                <td><%= dict.get(i-1).getEng() %></td>
+                <td><%= dict.get(i-1).getVn()%></td>
+            </tr>
+            <%
+                }
+            %>
         </table>
     </body>
 </html>

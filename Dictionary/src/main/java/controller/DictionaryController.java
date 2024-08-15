@@ -61,9 +61,13 @@ public class DictionaryController extends HttpServlet {
             throws ServletException, IOException {
         IOStream iodao = new IOStream();
         ArrayList<Dictionary> dictList = new ArrayList<>();
-        dictList = iodao.read();
         HttpSession session = request.getSession();
-        session.setAttribute("dictList", dictList);
+        if (session.getAttribute("dicList") == null) {
+            dictList = iodao.read();
+            session.setAttribute("dictList", dictList);
+        } else {
+            dictList = (ArrayList<Dictionary>) session.getAttribute("dicList");
+        }
         String uri = request.getRequestURI();
         if (uri.endsWith("/Dictionary")) {
             request.getRequestDispatcher("/index.jsp").forward(request, response);

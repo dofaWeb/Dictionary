@@ -18,8 +18,8 @@ import model.Dictionary;
  */
 public class IOStream {
     
-    String fi = "Dictionary/src/main/java/Data.txt";
-    String fo = "Dictionary/src/main/java/Data.txt";
+    String fi = "Data.txt";
+    String fo = "src/Data.txt";
     
     public ArrayList<Dictionary> read() {
         ArrayList<Dictionary> dictList = new ArrayList<>();
@@ -39,6 +39,11 @@ public class IOStream {
             System.out.println("Input Exception # " + ex);
         }
         return dictList;
+    }
+    
+    public int Trigger(){
+        int a = 1;
+        return a;
     }
     
 //    public void printResult() {
