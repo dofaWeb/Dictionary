@@ -12,6 +12,10 @@
         <servlet-name>DictionaryController</servlet-name>
         <servlet-class>controller.DictionaryController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Nagivator</servlet-name>
+        <servlet-class>controller.Nagivator</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ListController</servlet-name>
         <url-pattern>/List</url-pattern>
@@ -24,12 +28,16 @@
         <servlet-name>DictionaryController</servlet-name>
         <url-pattern>/Dictionary</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Nagivator</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>/Dictionary</welcome-file>
-    </welcome-file-list> 
+        <welcome-file>/</welcome-file>
+    </welcome-file-list>
 </web-app>
