@@ -13,7 +13,7 @@
     </head>
     <body>
         <h1>Hello World!</h1>
-        <a href="/Add"><button>Add</button></a><br>
+        <a href="/Word"><button>Word</button></a><br>
         <a href="/List"><button>List</button></a><br>
         <a><button>Test</button></a><br>
     </body>
