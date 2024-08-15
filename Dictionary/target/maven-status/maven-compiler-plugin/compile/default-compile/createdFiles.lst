@@ -1,2 +1,5 @@
+model\Dictionary.class
+dao\IOStream.class
+controller\DictionaryController.class
 controller\WordController.class
 controller\ListController.class
