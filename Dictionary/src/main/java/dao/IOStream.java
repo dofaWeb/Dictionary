@@ -4,11 +4,9 @@
  */
 package dao;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Scanner;
 import model.Dictionary;
@@ -18,8 +16,6 @@ import model.Dictionary;
  * @author NHAT
  */
 public class IOStream {
-
-    String fo = "src/Data.txt";
 
     public ArrayList<Dictionary> read() {
         ArrayList<Dictionary> dictList = new ArrayList<>();
@@ -32,7 +28,8 @@ public class IOStream {
             return dictList;
         }
 
-        try ( Scanner sc = new Scanner(fi)) {
+        // Use InputStreamReader to specify UTF-8 encoding
+        try ( Scanner sc = new Scanner(new InputStreamReader(fi, StandardCharsets.UTF_8))) {
             int n = Integer.parseInt(sc.nextLine());
             String Eng;
             String Vn;
