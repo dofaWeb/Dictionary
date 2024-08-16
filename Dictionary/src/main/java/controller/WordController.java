@@ -10,6 +10,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import model.Dictionary;
 
@@ -81,13 +83,19 @@ public class WordController extends HttpServlet {
             String Eng = request.getParameter("Eng");
             String Vn = request.getParameter("Vn");
             System.out.println(Eng + " " + Vn);
-            
-            response.sendRedirect(request.getContextPath()+"/Word/AddWord");
+            String result = "";
+            HttpSession session = request.getSession();
+            ArrayList<Dictionary> dictList = (ArrayList<Dictionary>) session.getAttribute("dictList");
+            result = "" + dictList.size() + "\n";
+            for (Dictionary dictionary : dictList) {
+                result += dictionary.getEng() + "\n" + dictionary.getVn();
+            }
+            result += Eng + "\n" + Vn;
+            response.sendRedirect(request.getContextPath() + "/Word/AddWord");
         }
     }
-    
+
     List<Dictionary> dic;
-    
 
     /**
      * Returns a short description of the servlet.
