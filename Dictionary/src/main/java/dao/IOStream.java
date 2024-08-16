@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 import model.Dictionary;
@@ -17,35 +18,39 @@ import model.Dictionary;
  * @author NHAT
  */
 public class IOStream {
-    
-    String fi = "Data.txt";
+
     String fo = "src/Data.txt";
-    
+
     public ArrayList<Dictionary> read() {
         ArrayList<Dictionary> dictList = new ArrayList<>();
-        try ( Scanner sc = new Scanner(new File(fi))) {
-            
+
+        // Get the input stream
+        InputStream fi = Thread.currentThread().getContextClassLoader().getResourceAsStream("Data.txt");
+
+        if (fi == null) {
+            System.out.println("File not found");
+            return dictList;
+        }
+
+        try ( Scanner sc = new Scanner(fi)) {
             int n = Integer.parseInt(sc.nextLine());
             String Eng;
             String Vn;
-            for(int i=0; i<n; i++){
+            for (int i = 0; i < n; i++) {
                 Eng = sc.nextLine();
                 Vn = sc.nextLine();
                 dictList.add(new Dictionary(Eng, Vn));
             }
- 
-            sc.close();
-        } catch (FileNotFoundException ex) {
-            System.out.println("Input Exception # " + ex);
+
+            return dictList;
         }
-        return dictList;
     }
-    
-    public int Trigger(){
+
+    public int Trigger() {
         int a = 1;
         return a;
     }
-    
+
 //    public void printResult() {
 //        try {
 //            FileWriter fw = new FileWriter(fo);

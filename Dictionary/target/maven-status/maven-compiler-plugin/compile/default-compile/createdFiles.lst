@@ -1,6 +1,6 @@
-model\Dictionary.class
 dao\IOStream.class
 controller\DictionaryController.class
 controller\WordController.class
+model\Dictionary.class
 controller\ListController.class
 controller\Nagivator.class
