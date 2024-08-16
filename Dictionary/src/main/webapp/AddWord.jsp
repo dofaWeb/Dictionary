@@ -20,5 +20,6 @@
             <input type="hidden" name="Word" value="AddWord"/>
             <input type="submit" name="Submit" value="Submit"/>
         </form>
+        <a href="/Dictionary"><button>Back to Home</button></a>
     </body>
 </html>
