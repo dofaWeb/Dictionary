@@ -4,6 +4,8 @@
  */
 package dao;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
@@ -17,11 +19,12 @@ import model.Dictionary;
  */
 public class IOStream {
 
+    private String filePath = "Data.txt";
     public ArrayList<Dictionary> read() {
         ArrayList<Dictionary> dictList = new ArrayList<>();
 
         // Get the input stream
-        InputStream fi = Thread.currentThread().getContextClassLoader().getResourceAsStream("Data.txt");
+        InputStream fi = Thread.currentThread().getContextClassLoader().getResourceAsStream(filePath);
 
         if (fi == null) {
             System.out.println("File not found");
@@ -46,6 +49,21 @@ public class IOStream {
     public int Trigger() {
         int a = 1;
         return a;
+    }
+
+    public void writeOut(ArrayList<Dictionary> dictList) {
+        try ( FileWriter writer = new FileWriter(filePath)) {
+            writer.write(dictList.size() + "\n");
+
+            for (Dictionary dict : dictList) {
+                writer.write(dict.getEng() + "\n");
+                writer.write(dict.getVn() + "\n");
+            }
+
+            writer.flush();
+        } catch (IOException ex) {
+            System.out.println("Output Exception # " + ex);
+        }
     }
 
 //    public void printResult() {
