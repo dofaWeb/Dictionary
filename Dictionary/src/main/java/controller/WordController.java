@@ -71,6 +71,12 @@ public class WordController extends HttpServlet {
             String Id = path[path.length-1];
             request.setAttribute("EditWord", Id);
             request.getRequestDispatcher("/Edit.jsp").forward(request, response);
+        }else if(uri.startsWith("/Word/Delete/")){
+            String[] path = uri.split("/");
+            String Id = path[path.length-1];
+            DictionaryDAO dictDAO = new DictionaryDAO();
+            dictDAO.delete(Id);
+            response.sendRedirect("/List");
         }
     }
 

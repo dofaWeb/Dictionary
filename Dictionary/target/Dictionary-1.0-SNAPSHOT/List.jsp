@@ -70,7 +70,7 @@
                             <td><%= dict.get(i - 1).getVn() %></td>
                             <td>
                                 <a href="/Word/Edit/<%= dict.get(i-1).getId() %>" class="btn btn-sm btn-primary">Edit</a>
-                                <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                                <a onclick="return confirm('Are you sure?')" href="/Word/Delete/<%= dict.get(i-1).getId() %>" class="btn btn-sm btn-danger">Delete</a>
                             </td>
                         </tr>
                         <%
