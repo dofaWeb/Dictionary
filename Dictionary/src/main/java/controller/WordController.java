@@ -4,12 +4,15 @@
  */
 package controller;
 
+import dao.DictionaryDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import model.Dictionary;
 
@@ -78,16 +81,20 @@ public class WordController extends HttpServlet {
             throws ServletException, IOException {
         String key = request.getParameter("Word");
         if (key.equalsIgnoreCase("AddWord")) {
-            String Eng = request.getParameter("Eng");
-            String Vn = request.getParameter("Vn");
-            System.out.println(Eng + " " + Vn);
-            
-            response.sendRedirect(request.getContextPath()+"/Word/AddWord");
+            AddWordPost(request, response);
+
+            response.sendRedirect(request.getContextPath() + "/Word/AddWord");
         }
     }
-    
-    List<Dictionary> dic;
-    
+
+    void AddWordPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String Eng = request.getParameter("Eng");
+        String Vn = request.getParameter("Vn");
+        System.out.println(Eng + " " + Vn);
+        DictionaryDAO dictdao = new DictionaryDAO();
+        dictdao.insertDictionary(new Dictionary(Eng, Vn));
+    }
 
     /**
      * Returns a short description of the servlet.

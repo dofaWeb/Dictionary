@@ -4,7 +4,7 @@
  */
 package controller;
 
-import dao.IOStream;
+import dao.DictionaryDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -59,15 +59,6 @@ public class DictionaryController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        IOStream iodao = new IOStream();
-        ArrayList<Dictionary> dictList = new ArrayList<>();
-        HttpSession session = request.getSession();
-        if (session.getAttribute("dicList") == null) {
-            dictList = iodao.read();
-            session.setAttribute("dictList", dictList);
-        } else {
-            dictList = (ArrayList<Dictionary>) session.getAttribute("dicList");
-        }
         String uri = request.getRequestURI();
         if (uri.endsWith("/Dictionary")) {
             request.getRequestDispatcher("/index.jsp").forward(request, response);
