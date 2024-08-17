@@ -4,6 +4,7 @@
  */
 package controller;
 
+import dao.DictionaryDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -60,8 +61,8 @@ public class ListController extends HttpServlet {
             throws ServletException, IOException {
         String uri = request.getRequestURI();
         ArrayList<Dictionary> dictList = new ArrayList<>();
-        HttpSession session = request.getSession();
-        dictList = (ArrayList<Dictionary>) session.getAttribute("dictList");
+        DictionaryDAO dictdao = new DictionaryDAO();
+        dictList = dictdao.getAllDictionary();
         if (uri.contains("List")) {
             request.setAttribute("dictList", dictList);
             request.getRequestDispatcher("/List.jsp").forward(request, response);

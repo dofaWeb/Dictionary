@@ -1,4 +1,4 @@
-<%@page import="dao.IOStream"%>
+
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Dictionary"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -60,10 +60,8 @@
                     </thead>
                     <tbody>
                         <%
-                            IOStream io = new IOStream();
-                            int a = io.Trigger();
                             ArrayList<Dictionary> dict = new ArrayList<>();
-                            dict = (ArrayList<Dictionary>) session.getAttribute("dictList");
+                            dict = (ArrayList<Dictionary>) request.getAttribute("dictList");
                             for (int i = 1; i <= dict.size(); i++) {
                         %>
                         <tr>
