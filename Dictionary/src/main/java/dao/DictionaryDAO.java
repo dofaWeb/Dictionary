@@ -34,7 +34,7 @@ public class DictionaryDAO {
         PreparedStatement pre = null;
         ResultSet rs = null;
         try {
-            String sql = "SELECT * FROM sql12726522.Dictionary;";
+            String sql = "SELECT * FROM sql12726597.Dictionary;";
             pre = conn.prepareStatement(sql);
             rs = pre.executeQuery();
             while (rs.next()) {
@@ -65,7 +65,7 @@ public class DictionaryDAO {
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
-            String sql = "SELECT * FROM sql12726522.Dictionary WHERE Id = ?";
+            String sql = "SELECT * FROM sql12726597.Dictionary WHERE Id = ?";
             pst = conn.prepareStatement(sql);
             pst.setString(1, Id);
             rs = pst.executeQuery();
@@ -95,7 +95,7 @@ public class DictionaryDAO {
         int count = 0;
         PreparedStatement pre = null;
         try {
-            String sql = "INSERT INTO sql12726522.Dictionary"
+            String sql = "INSERT INTO sql12726597.Dictionary"
                     + " (`Eng`,`Vn`)"
                     + " VALUES"
                     + "(?,?);";
@@ -120,7 +120,7 @@ public class DictionaryDAO {
         PreparedStatement pst = null;
         int count = 0;
         try {
-            String sql = "UPDATE sql12726522.Dictionary SET Eng = ?, Vn = ? WHERE Id = ?";
+            String sql = "UPDATE sql12726597.Dictionary SET Eng = ?, Vn = ? WHERE Id = ?";
             pst = conn.prepareStatement(sql);
             pst.setString(1, newinfo.getEng());
             pst.setString(2, newinfo.getVn());
@@ -144,7 +144,7 @@ public class DictionaryDAO {
         int count = 0;
         PreparedStatement pst = null;
         try {
-            String sql = "Delete from sql12726522.Dictionary where Id = ?";
+            String sql = "Delete from sql12726597.Dictionary where Id = ?";
             pst = conn.prepareStatement(sql);
             pst.setString(1, Id);
             count = pst.executeUpdate();

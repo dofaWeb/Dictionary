@@ -8,9 +8,9 @@ import java.sql.SQLException;
  * DBConnection class to manage the database connection.
  */
 public class DBConnection {
-    private static final String URL = "jdbc:mysql://sql12.freesqldatabase.com:3306/sql12726522";
-    private static final String USER = "sql12726522";
-    private static final String PASSWORD = "gEVmMwUm5f";
+    private static final String URL = "jdbc:mysql://sql12.freesqldatabase.com:3306/sql12726597";
+    private static final String USER = "sql12726597";
+    private static final String PASSWORD = "tz53lLT3Vp";
     private static final String DRIVER_CLASS = "com.mysql.cj.jdbc.Driver"; // MySQL JDBC driver
 
     // Method to establish and return a database connection
