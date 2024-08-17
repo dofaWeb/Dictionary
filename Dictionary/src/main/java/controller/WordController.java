@@ -61,10 +61,16 @@ public class WordController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String uri = request.getRequestURI();
+        HttpSession session = request.getSession();
         if (uri.endsWith("/Word")) {
             request.getRequestDispatcher("/Word.jsp").forward(request, response);
         } else if (uri.endsWith("/AddWord")) {
             request.getRequestDispatcher("/AddWord.jsp").forward(request, response);
+        }else if(uri.startsWith("/Word/Edit/")){
+            String[] path = uri.split("/");
+            String Id = path[path.length-1];
+            request.setAttribute("EditWord", Id);
+            request.getRequestDispatcher("/Edit.jsp").forward(request, response);
         }
     }
 
