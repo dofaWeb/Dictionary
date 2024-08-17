@@ -46,6 +46,24 @@ public class DictionaryDAO {
         }
         return dictList;
     }
+    
+    public Dictionary getDictionaryByID(String Id){
+        Dictionary dict = new Dictionary();
+        try{
+            String sql = "SELECT * FROM sql12726522.Dictionary WHERE Id = ?";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, Id);
+            ResultSet rs = pst.executeQuery();
+            if(rs.next()) {
+                dict.setEng(rs.getString("Eng"));
+                dict.setVn(rs.getString("Vn"));
+                dict.setId(rs.getInt("Id"));
+            }
+        }catch(Exception e){
+            
+        }
+        return dict;
+    }
 
     public int insertDictionary(Dictionary dict) {
         int count = 0;
@@ -66,10 +84,11 @@ public class DictionaryDAO {
     public int uppdate(Dictionary newinfo){
         int count = 0;
         try{
-            String sql = "Update sql12726522.Dictionary SET (`Eng`,`Vn`) Values(?,?)";
+            String sql = "Update sql12726522.Dictionary SET (`Eng`,`Vn`) Values(?,?) WHERE Id = ?";
             PreparedStatement pst = conn.prepareStatement(sql);
             pst.setString(1, newinfo.getEng());
             pst.setString(2, newinfo.getVn());
+            pst.setInt(3, newinfo.getId());
             count = pst.executeUpdate();
         }catch(Exception e){
             
