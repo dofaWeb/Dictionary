@@ -31,10 +31,12 @@ public class DictionaryDAO {
 
     public ArrayList<Dictionary> getAllDictionary() {
         ArrayList<Dictionary> dictList = new ArrayList<>();
+        PreparedStatement pre = null;
+        ResultSet rs = null;
         try {
             String sql = "SELECT * FROM sql12726522.Dictionary;";
-            PreparedStatement pre = conn.prepareStatement(sql);
-            ResultSet rs = pre.executeQuery();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
             while (rs.next()) {
                 Dictionary dict = new Dictionary();
                 dict.setEng(rs.getString("Eng"));
@@ -43,68 +45,120 @@ public class DictionaryDAO {
                 dictList.add(dict);
             }
         } catch (Exception e) {
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pre != null) {
+                    pre.close();
+                }
+            } catch (Exception e) {
+            }
+            db.DBConnection.closeConnection(conn);
         }
         return dictList;
     }
-    
-    public Dictionary getDictionaryByID(String Id){
+
+    public Dictionary getDictionaryByID(String Id) {
         Dictionary dict = new Dictionary();
-        try{
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
             String sql = "SELECT * FROM sql12726522.Dictionary WHERE Id = ?";
-            PreparedStatement pst = conn.prepareStatement(sql);
+            pst = conn.prepareStatement(sql);
             pst.setString(1, Id);
-            ResultSet rs = pst.executeQuery();
-            if(rs.next()) {
+            rs = pst.executeQuery();
+            if (rs.next()) {
                 dict.setEng(rs.getString("Eng"));
                 dict.setVn(rs.getString("Vn"));
                 dict.setId(rs.getInt("Id"));
             }
-        }catch(Exception e){
-            
+        } catch (Exception e) {
+
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+            }
+            db.DBConnection.closeConnection(conn);
         }
         return dict;
     }
 
     public int insertDictionary(Dictionary dict) {
         int count = 0;
+        PreparedStatement pre = null;
         try {
             String sql = "INSERT INTO sql12726522.Dictionary"
                     + " (`Eng`,`Vn`)"
                     + " VALUES"
                     + "(?,?);";
-            PreparedStatement pre = conn.prepareStatement(sql);
+            pre = conn.prepareStatement(sql);
             pre.setString(1, dict.getEng());
             pre.setString(2, dict.getVn());
             count = pre.executeUpdate();
         } catch (Exception e) {
+        } finally {
+            try {
+                if (pre != null) {
+                    pre.close();
+                }
+            } catch (Exception e) {
+            }
+            db.DBConnection.closeConnection(conn);
         }
         return count;
     }
-    
-    public int uppdate(Dictionary newinfo){
+
+    public int uppdate(Dictionary newinfo) {
+        PreparedStatement pst = null;
         int count = 0;
-        try{
+        try {
             String sql = "UPDATE sql12726522.Dictionary SET Eng = ?, Vn = ? WHERE Id = ?";
-            PreparedStatement pst = conn.prepareStatement(sql);
+            pst = conn.prepareStatement(sql);
             pst.setString(1, newinfo.getEng());
             pst.setString(2, newinfo.getVn());
             pst.setInt(3, newinfo.getId());
             count = pst.executeUpdate();
-        }catch(Exception e){
-            
+        } catch (Exception e) {
+
+        } finally {
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+            }
+            db.DBConnection.closeConnection(conn);
         }
         return count;
     }
-    
-    public int delete(String Id){
+
+    public int delete(String Id) {
         int count = 0;
-        try{
+        PreparedStatement pst = null;
+        try {
             String sql = "Delete from sql12726522.Dictionary where Id = ?";
-            PreparedStatement pst = conn.prepareStatement(sql);
+            pst = conn.prepareStatement(sql);
             pst.setString(1, Id);
             count = pst.executeUpdate();
-        }catch(Exception e){
-            
+        } catch (Exception e) {
+
+        } finally {
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+            } catch (Exception e) {
+            }
+
+            db.DBConnection.closeConnection(conn);
         }
         return count;
     }
