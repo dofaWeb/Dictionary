@@ -95,4 +95,17 @@ public class DictionaryDAO {
         }
         return count;
     }
+    
+    public int delete(String Id){
+        int count = 0;
+        try{
+            String sql = "Delete from sql12726522.Dictionary where Id = ?";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, Id);
+            count = pst.executeUpdate();
+        }catch(Exception e){
+            
+        }
+        return count;
+    }
 }
