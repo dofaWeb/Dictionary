@@ -16,6 +16,11 @@ public class Dictionary {
 
     public Dictionary() {
     }
+    
+     public Dictionary(String Eng, String Vn) {
+        this.Eng = Eng;
+        this.Vn = Vn;
+    }
 
     public Dictionary(String Eng, String Vn, int Id) {
         this.Eng = Eng;
