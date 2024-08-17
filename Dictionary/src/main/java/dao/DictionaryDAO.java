@@ -84,7 +84,7 @@ public class DictionaryDAO {
     public int uppdate(Dictionary newinfo){
         int count = 0;
         try{
-            String sql = "Update sql12726522.Dictionary SET (`Eng`,`Vn`) Values(?,?) WHERE Id = ?";
+            String sql = "UPDATE sql12726522.Dictionary SET Eng = ?, Vn = ? WHERE Id = ?";
             PreparedStatement pst = conn.prepareStatement(sql);
             pst.setString(1, newinfo.getEng());
             pst.setString(2, newinfo.getVn());
