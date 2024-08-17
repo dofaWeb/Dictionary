@@ -86,10 +86,19 @@ public class WordController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String key = request.getParameter("Word");
-        if (key.equalsIgnoreCase("AddWord")) {
+        if (key!=null && key.equalsIgnoreCase("AddWord")) {
             AddWordPost(request, response);
 
             request.getRequestDispatcher("/AddWord.jsp").forward(request, response);
+        }
+        if(request.getParameter("editBtn")!=null){
+            String Eng = request.getParameter("engTxt");
+            String Vn = request.getParameter("vnTxt");
+            String Id = request.getParameter("idTxt");
+            Dictionary dict = new Dictionary(Eng, Vn, Integer.parseInt(Id));
+            DictionaryDAO dictDAO = new DictionaryDAO();
+            dictDAO.uppdate(dict);
+            response.sendRedirect("/List");
         }
     }
 
