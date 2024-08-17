@@ -12,14 +12,24 @@ public class Dictionary {
 
     String Eng;
     String Vn;
+    int Id;
 
     public Dictionary() {
     }
 
-    public Dictionary(String Eng, String Vn) {
+    public Dictionary(String Eng, String Vn, int Id) {
         this.Eng = Eng;
         this.Vn = Vn;
+        this.Id = Id;
     }
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int Id) {
+        this.Id = Id;
+    }    
 
     public String getEng() {
         return Eng;

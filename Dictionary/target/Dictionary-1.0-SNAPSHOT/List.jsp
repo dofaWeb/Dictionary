@@ -69,7 +69,7 @@
                             <td><%= dict.get(i - 1).getEng() %></td>
                             <td><%= dict.get(i - 1).getVn() %></td>
                             <td>
-                                <a href="#" class="btn btn-sm btn-primary">Edit</a>
+                                <a href="/Word/Edit/<%= dict.get(i-1).getId() %>" class="btn btn-sm btn-primary">Edit</a>
                                 <a href="#" class="btn btn-sm btn-danger">Delete</a>
                             </td>
                         </tr>

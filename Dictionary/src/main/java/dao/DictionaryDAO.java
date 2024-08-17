@@ -39,6 +39,7 @@ public class DictionaryDAO {
                 Dictionary dict = new Dictionary();
                 dict.setEng(rs.getString("Eng"));
                 dict.setVn(rs.getString("Vn"));
+                dict.setId(rs.getInt("Id"));
                 dictList.add(dict);
             }
         } catch (Exception e) {

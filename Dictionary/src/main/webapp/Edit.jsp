@@ -13,6 +13,9 @@
     </head>
     <body>
         <h1>Edit!</h1>
-        
+        <form>
+            Eng: <input type='txt' value='' name='engTxt'/> <br/>
+            Vn: <input type='txt' value='' name='vnTxt'/> <br/>
+        </form>
     </body>
 </html>
