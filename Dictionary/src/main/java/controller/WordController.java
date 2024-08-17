@@ -83,7 +83,7 @@ public class WordController extends HttpServlet {
         if (key.equalsIgnoreCase("AddWord")) {
             AddWordPost(request, response);
 
-            response.sendRedirect(request.getContextPath() + "/Word/AddWord");
+            request.getRequestDispatcher("/AddWord.jsp").forward(request, response);
         }
     }
 
@@ -91,9 +91,12 @@ public class WordController extends HttpServlet {
             throws ServletException, IOException {
         String Eng = request.getParameter("Eng");
         String Vn = request.getParameter("Vn");
-        System.out.println(Eng + " " + Vn);
-        DictionaryDAO dictdao = new DictionaryDAO();
-        dictdao.insertDictionary(new Dictionary(Eng, Vn));
+        if (!Eng.equals("") && !Vn.equals("")) {
+            DictionaryDAO dictdao = new DictionaryDAO();
+            dictdao.insertDictionary(new Dictionary(Eng, Vn));
+        }else {
+            request.setAttribute("Add Word Error", "You need to fill both fileds to submit");
+        }
     }
 
     /**

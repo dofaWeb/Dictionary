@@ -49,7 +49,7 @@ public class DictionaryDAO {
     public int insertDictionary(Dictionary dict) {
         int count = 0;
         try {
-            String sql = "INSERT INTO `sql12726522`.`Dictionary`\n"
+            String sql = "INSERT INTO sql12726522.Dictionary"
                     + " (`Eng`,`Vn`)"
                     + " VALUES"
                     + "(?,?);";
@@ -58,6 +58,20 @@ public class DictionaryDAO {
             pre.setString(2, dict.getVn());
             count = pre.executeUpdate();
         } catch (Exception e) {
+        }
+        return count;
+    }
+    
+    public int uppdate(Dictionary newinfo){
+        int count = 0;
+        try{
+            String sql = "Update sql12726522.Dictionary SET (`Eng`,`Vn`) Values(?,?)";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, newinfo.getEng());
+            pst.setString(2, newinfo.getVn());
+            count = pst.executeUpdate();
+        }catch(Exception e){
+            
         }
         return count;
     }

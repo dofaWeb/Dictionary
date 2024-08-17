@@ -12,13 +12,20 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <a href="/Word"><button>Back</button></a><br>
         <h1>Add A Word</h1>
+        <%
+        if(request.getAttribute("Add Word Error")!=null) {
+            String msg = (String) request.getAttribute("Add Word Error");
+            %>
+            <p style='color:red'><%=msg%></p>
+            <%
+            }
+        %>
         <form action="Word" method="post">
             English:<input type="text" name="Eng"/><br><!-- comment -->
             Vietnamese:<input type="text" name="Vn"/><br><!-- comment -->
-            <input type="hidden" name="Word" value="AddWord"/>
-            <input type="submit" name="Submit" value="Submit"/>
+            <input type="hidden" required="" name="Word" value="AddWord"/>
+            <input type="submit" required="" name="Submit" value="Submit"/>
         </form>
         <a href="/Dictionary"><button>Back to Home</button></a>
     </body>

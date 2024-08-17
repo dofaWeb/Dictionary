@@ -35,7 +35,7 @@
     <body>
         <div class="container">
             <h1>Web Dictionary</h1>
-            <a href="/Word"><button class="btn btn-primary">Add a Word</button></a><br>
+            <a href="/Word/AddWord"><button class="btn btn-primary">Add a Word</button></a><br>
             <a href="/List"><button class="btn btn-success">Show List</button></a><br>
             <a href="#"><button class="btn btn-warning">Take a Test</button></a><br>
         </div>
