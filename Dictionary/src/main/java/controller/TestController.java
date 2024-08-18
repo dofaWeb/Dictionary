@@ -87,27 +87,38 @@ public class TestController extends HttpServlet {
         String typeTest = request.getParameter("typeTest");
         String typeRange = request.getParameter("typeRange");
         int size = Integer.parseInt(request.getParameter("size"));
-        int from = 0;
-        int to = 0;
-        if (typeRange.equalsIgnoreCase("All")) {
-            from = 0;
-            to = size;
-        } else if (typeRange.equalsIgnoreCase("Specific")) {
-            String rangeOption = request.getParameter("rangeOption");
-            if (rangeOption.equalsIgnoreCase("1")) {
-                from = Integer.parseInt(request.getParameter("from1"));
-                to = Integer.parseInt(request.getParameter("to1"));
-            } else if (rangeOption.equalsIgnoreCase("2")) {
-                from = Integer.parseInt(request.getParameter("from2"));
-                to = Integer.parseInt(request.getParameter("to2"));
+        if (typeTest == null || typeRange == null) {
+            request.setAttribute("error", "Invalid option!");
+            request.setAttribute("size", size);
+            request.getRequestDispatcher("/Test.jsp").forward(request, response);
+        } else {
+            int from = 0;
+            int to = 0;
+            if (typeRange.equalsIgnoreCase("All")) {
+                from = 1;
+                to = size;
+            } else if (typeRange.equalsIgnoreCase("Specific")) {
+                String rangeOption = request.getParameter("rangeOption");
+                if (rangeOption == null) {
+                    request.setAttribute("error", "Invalid option!");
+                    request.setAttribute("size", size);
+                    request.getRequestDispatcher("/Test.jsp").forward(request, response);
+                }
+                if (rangeOption.equalsIgnoreCase("1")) {
+                    from = Integer.parseInt(request.getParameter("from1"));
+                    to = Integer.parseInt(request.getParameter("to1"));
+                } else if (rangeOption.equalsIgnoreCase("2")) {
+                    from = Integer.parseInt(request.getParameter("from2"));
+                    to = Integer.parseInt(request.getParameter("to2"));
+                }
             }
-        }
 
-        if (typeTest.equalsIgnoreCase("Random")) {
-            generateUniqueRandomNumbers(from, to, request, response);
-            request.getRequestDispatcher("/Testing.jsp").forward(request, response);
-        } else if (typeTest.equalsIgnoreCase("Linear")) {
+            if (typeTest.equalsIgnoreCase("Random")) {
+                generateUniqueRandomNumbers(from, to, request, response);
+                request.getRequestDispatcher("/Testing.jsp").forward(request, response);
+            } else if (typeTest.equalsIgnoreCase("Linear")) {
 
+            }
         }
     }
 
