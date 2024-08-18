@@ -25,6 +25,7 @@
     </head>
     <body>
         <h1>TEST</h1>
+        <h2 style="color:red">${requestScope.error}</h2>
         <form action="Test" method="post">
             <input type="radio" value="Random" name="typeTest"/>Random<br><!-- comment -->
             <input type="radio" value="Linear" name="typeTest"/>Linear<br><!-- comment -->
