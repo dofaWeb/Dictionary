@@ -11,6 +11,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -84,40 +85,83 @@ public class TestController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String typeTest = request.getParameter("typeTest");
-        String typeRange = request.getParameter("typeRange");
-        int size = Integer.parseInt(request.getParameter("size"));
-        if (typeTest == null || typeRange == null) {
-            request.setAttribute("error", "Invalid option!");
-            request.setAttribute("size", size);
-            request.getRequestDispatcher("/Test.jsp").forward(request, response);
-        } else {
-            int from = 0;
-            int to = 0;
-            if (typeRange.equalsIgnoreCase("All")) {
-                from = 1;
-                to = size;
-            } else if (typeRange.equalsIgnoreCase("Specific")) {
-                String rangeOption = request.getParameter("rangeOption");
-                if (rangeOption == null) {
-                    request.setAttribute("error", "Invalid option!");
-                    request.setAttribute("size", size);
-                    request.getRequestDispatcher("/Test.jsp").forward(request, response);
+        String key = request.getParameter("key");
+        if (key.equalsIgnoreCase("Test")) {
+            String typeTest = request.getParameter("typeTest");
+            String typeRange = request.getParameter("typeRange");
+            int size = 0;
+            if (request.getParameter("size") != null) {
+                size = Integer.parseInt(request.getParameter("size"));
+            }
+            if (typeTest == null || typeRange == null) {
+                request.setAttribute("error", "Invalid option!");
+                request.setAttribute("size", size);
+                request.getRequestDispatcher("/Test.jsp").forward(request, response);
+            } else {
+                int from = 0;
+                int to = 0;
+                if (typeRange.equalsIgnoreCase("All")) {
+                    from = 1;
+                    to = size;
+                } else if (typeRange.equalsIgnoreCase("Specific")) {
+                    String rangeOption = request.getParameter("rangeOption");
+                    if (rangeOption == null) {
+                        request.setAttribute("error", "Invalid option!");
+                        request.setAttribute("size", size);
+                        request.getRequestDispatcher("/Test.jsp").forward(request, response);
+                    }
+                    if (rangeOption.equalsIgnoreCase("1")) {
+                        from = Integer.parseInt(request.getParameter("from1"));
+                        to = Integer.parseInt(request.getParameter("to1"));
+                    } else if (rangeOption.equalsIgnoreCase("2")) {
+                        from = Integer.parseInt(request.getParameter("from2"));
+                        to = Integer.parseInt(request.getParameter("to2"));
+                    }
                 }
-                if (rangeOption.equalsIgnoreCase("1")) {
-                    from = Integer.parseInt(request.getParameter("from1"));
-                    to = Integer.parseInt(request.getParameter("to1"));
-                } else if (rangeOption.equalsIgnoreCase("2")) {
-                    from = Integer.parseInt(request.getParameter("from2"));
-                    to = Integer.parseInt(request.getParameter("to2"));
+                HttpSession session = request.getSession();
+                session.setAttribute("from", from);
+                session.setAttribute("to", to);
+                if (typeTest.equalsIgnoreCase("Random")) {
+                    session.setAttribute("state", "Random");
+                    request.setAttribute("i", 0);
+                    generateUniqueRandomNumbers(from, to, request, response);
+                    
+
+                } else if (typeTest.equalsIgnoreCase("Linear")) {
+                    session.setAttribute("state", "Linear");
+                    request.setAttribute("i", 0);
+                    generateLieanrNumbers(from, to, request, response);
+                    
                 }
             }
+        } else if (key.equalsIgnoreCase("Testing")) {
 
-            if (typeTest.equalsIgnoreCase("Random")) {
-                generateUniqueRandomNumbers(from, to, request, response);
+            if (request.getParameter("Check") != null) {
+                int i = Integer.parseInt(request.getParameter("i"));
+                String Vn = request.getParameter("Vn");
+                String VnAnswer = request.getParameter("VnAnswer");
+                if (Vn.equalsIgnoreCase(VnAnswer)) {
+                    i++;
+                    if (i > dictionaryList.size()) {
+                        i = 0;
+                        request.setAttribute("i", i);
+                        HttpSession session = request.getSession();
+                        String State = (String)session.getAttribute("State");
+                        int from = (int) session.getAttribute("from");
+                        int to = (int) session.getAttribute("to");
+                        if(State.equalsIgnoreCase("Random")){
+                            generateUniqueRandomNumbers(from, to, request, response);
+                        }else if(State.equalsIgnoreCase("Linear")){
+                            generateLieanrNumbers(from, to, request, response);
+                        }
+                    } else {
+                        request.setAttribute("i", i);
+                    }
+                } else {
+                    request.setAttribute("i", i);
+                    request.setAttribute("error", "Vietnamese: " + VnAnswer);
+                }
                 request.getRequestDispatcher("/Testing.jsp").forward(request, response);
-            } else if (typeTest.equalsIgnoreCase("Linear")) {
-
             }
         }
     }
@@ -131,8 +175,24 @@ public class TestController extends HttpServlet {
 
         // Trộn danh sách để các số trở thành ngẫu nhiên
         Collections.shuffle(numbers);
-        request.setAttribute("testingList", numbers);
-        request.setAttribute("dictList", dictionaryList);
+        HttpSession session = request.getSession();
+        session.setAttribute("index", numbers);
+
+        session.setAttribute("dictList", dictionaryList);
+        request.getRequestDispatcher("/Testing.jsp").forward(request, response);
+    }
+
+    public void generateLieanrNumbers(int from, int to, HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        List<Integer> numbers = new ArrayList<>();
+        for (int i = from; i <= to; i++) {
+            numbers.add(i);
+        }
+
+        HttpSession session = request.getSession();
+        session.setAttribute("index", numbers);
+        session.setAttribute("dictList", dictionaryList);
+        request.getRequestDispatcher("/Testing.jsp").forward(request, response);
     }
 
     /**

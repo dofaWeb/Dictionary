@@ -21,17 +21,20 @@
                 }
             }
 
+            // Gọi hàm toggleRangeInputs() khi trang được tải
+            window.onload = toggleRangeInputs;
         </script>
     </head>
     <body>
+        <a href="/Dictionary">Back</a>
         <h1>TEST</h1>
         <h2 style="color:red">${requestScope.error}</h2>
         <form action="Test" method="post">
-            <input type="radio" value="Random" name="typeTest"/>Random<br><!-- comment -->
+            <input type="radio" value="Random" name="typeTest" checked/>Random<br><!-- comment -->
             <input type="radio" value="Linear" name="typeTest"/>Linear<br><!-- comment -->
             Question Range:<br><!-- comment -->
             <input type="radio" value="All" name="typeRange" onclick="toggleRangeInputs()"/>All<br><!-- comment -->
-            <input type="radio" value="Specific" name="typeRange" id="specificRange" onclick="toggleRangeInputs()"/>Specific<br><!-- comment -->
+            <input type="radio" value="Specific" name="typeRange" id="specificRange" onclick="toggleRangeInputs()" checked="checked"/>Specific<br><!-- comment -->
 
             <!-- Range inputs, hidden by default -->
             <div id="rangeInputs" style="display:none;">
@@ -51,17 +54,18 @@
                         toFirst = n;
                     }
                 %>
-                <input type="radio" name="rangeOption" value="1">1. From 
+                <input type="radio" name="rangeOption" value="1" >1. From 
                 <input type="number" name="from1" value="<%=fromFirst%>" min="1" max="<%=n%>" width="20px"/> 
                 To 
                 <input type="number" name="to1" value="<%=toFirst%>" min="1" max="<%=n%>" width="20px"/> <br><!-- comment -->
 
-                <input type="radio" name="rangeOption" value="2">2. From 
+                <input type="radio" name="rangeOption" value="2" checked>2. From 
                 <input type="number" name="from2" value="<%=fromLast%>" min="1" max="<%=n%>" width="20px"/>
                 To 
                 <input type="number" name="to2" value="<%=toLast%>" min="1" max="<%=n%>" width="20px"/> <br><!-- comment -->
             </div>
             <input type="hidden" value="<%=n%>" name="size"/>
+            <input type="hidden" value="Test" name="key"/>
             <input type="submit" value="Submit" name="submit"/>
         </form>
     </body>
