@@ -7,6 +7,8 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import model.Dictionary;
 
@@ -161,5 +163,57 @@ public class DictionaryDAO {
             db.DBConnection.closeConnection(conn);
         }
         return count;
+    }
+
+    public void killConnect() {
+    String sql = "SELECT CONCAT('KILL ', id, ';') AS kill_command " +
+                 "FROM INFORMATION_SCHEMA.PROCESSLIST " +
+                 "WHERE USER = 'sql12726597';";
+    PreparedStatement pre = null;
+    ResultSet rs = null;
+    String st;
+
+    try {
+        // Prepare and execute the query to get KILL statements
+        pre = conn.prepareStatement(sql);
+        rs = pre.executeQuery();
+
+        while (rs.next()) {
+            st = rs.getString("kill_command");
+
+            // Prepare and execute the KILL statement
+            try (Statement killStmt = conn.createStatement()) {
+                killStmt.execute(st);
+            } catch (SQLException e) {
+                // Handle or log exception for each KILL statement
+                System.err.println("Failed to execute: " + st);
+                e.printStackTrace();
+            }
+        }
+    } catch (SQLException e) {
+        // Handle or log exceptions for preparing or executing the query
+        e.printStackTrace();
+    } finally {
+        // Ensure resources are closed
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+            if (pre != null) {
+                pre.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // Close the database connection
+        db.DBConnection.closeConnection(conn);
+    }
+}
+
+
+    public void trigger() {
+        int a = 1;
+        a++;
     }
 }

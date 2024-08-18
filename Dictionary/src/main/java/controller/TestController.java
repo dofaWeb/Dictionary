@@ -87,6 +87,13 @@ public class TestController extends HttpServlet {
             throws ServletException, IOException {
         String key = request.getParameter("key");
         if (key.equalsIgnoreCase("Test")) {
+            HttpSession session = request.getSession();
+            
+            if (session != null) {
+                session.invalidate();
+                session = request.getSession();
+            }
+            session.setAttribute("Point", 0);
             String typeTest = request.getParameter("typeTest");
             String typeRange = request.getParameter("typeRange");
             int size = 0;
@@ -118,40 +125,47 @@ public class TestController extends HttpServlet {
                         to = Integer.parseInt(request.getParameter("to2"));
                     }
                 }
-                HttpSession session = request.getSession();
+
                 session.setAttribute("from", from);
                 session.setAttribute("to", to);
                 if (typeTest.equalsIgnoreCase("Random")) {
-                    session.setAttribute("state", "Random");
+                    session.setAttribute("State", "Random");
                     request.setAttribute("i", 0);
                     generateUniqueRandomNumbers(from, to, request, response);
-                    
 
                 } else if (typeTest.equalsIgnoreCase("Linear")) {
-                    session.setAttribute("state", "Linear");
+                    session.setAttribute("State", "Linear");
                     request.setAttribute("i", 0);
                     generateLieanrNumbers(from, to, request, response);
-                    
+
                 }
             }
         } else if (key.equalsIgnoreCase("Testing")) {
 
             if (request.getParameter("Check") != null) {
+                HttpSession session = request.getSession();
+                int Point = (int) session.getAttribute("Point");
                 int i = Integer.parseInt(request.getParameter("i"));
+
+                int from = (int) session.getAttribute("from");
+                int to = (int) session.getAttribute("to");
                 String Vn = request.getParameter("Vn");
                 String VnAnswer = request.getParameter("VnAnswer");
                 if (Vn.equalsIgnoreCase(VnAnswer)) {
                     i++;
-                    if (i > dictionaryList.size()) {
+                    Point++;
+                    if (Point % 4 == 0) {
+                        dictiotnaryDAO.killConnect();
+                    }
+                    if (i > to - from) {
                         i = 0;
                         request.setAttribute("i", i);
-                        HttpSession session = request.getSession();
-                        String State = (String)session.getAttribute("State");
-                        int from = (int) session.getAttribute("from");
-                        int to = (int) session.getAttribute("to");
-                        if(State.equalsIgnoreCase("Random")){
+
+                        String State = (String) session.getAttribute("State");
+                        session.setAttribute("Point", Point);
+                        if (State.equalsIgnoreCase("Random")) {
                             generateUniqueRandomNumbers(from, to, request, response);
-                        }else if(State.equalsIgnoreCase("Linear")){
+                        } else if (State.equalsIgnoreCase("Linear")) {
                             generateLieanrNumbers(from, to, request, response);
                         }
                     } else {
@@ -161,6 +175,7 @@ public class TestController extends HttpServlet {
                     request.setAttribute("i", i);
                     request.setAttribute("error", "Vietnamese: " + VnAnswer);
                 }
+                session.setAttribute("Point", Point);
                 request.getRequestDispatcher("/Testing.jsp").forward(request, response);
             }
         }
