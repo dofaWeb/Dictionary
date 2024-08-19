@@ -88,7 +88,7 @@ public class TestController extends HttpServlet {
         String key = request.getParameter("key");
         if (key.equalsIgnoreCase("Test")) {
             HttpSession session = request.getSession();
-            
+
             if (session != null) {
                 session.invalidate();
                 session = request.getSession();
@@ -129,10 +129,16 @@ public class TestController extends HttpServlet {
                 session.setAttribute("from", from);
                 session.setAttribute("to", to);
                 if (typeTest.equalsIgnoreCase("Random")) {
-                    session.setAttribute("State", "Random");
-                    request.setAttribute("i", 0);
-                    generateUniqueRandomNumbers(from, to, request, response);
-
+                    String randomType = request.getParameter("Duplicate");
+                    if (randomType.equalsIgnoreCase("noDuplicate")) {
+                        session.setAttribute("State", "RandomNoDuplicate");
+                        request.setAttribute("i", 0);
+                        generateUniqueRandomNumbers(from, to, request, response);
+                    } else if(randomType.equalsIgnoreCase("Duplicate")){
+                        session.setAttribute("State", "RandomDuplicate");
+                        request.setAttribute("i", 0);
+                        generateDuplicateRandomNumbers(from, to, request, response);
+                    }
                 } else if (typeTest.equalsIgnoreCase("Linear")) {
                     session.setAttribute("State", "Linear");
                     request.setAttribute("i", 0);
@@ -151,7 +157,7 @@ public class TestController extends HttpServlet {
                 int to = (int) session.getAttribute("to");
                 String Vn = request.getParameter("Vn");
                 String VnAnswer = request.getParameter("VnAnswer");
-                if (Vn.equalsIgnoreCase(VnAnswer)) {
+                if (Vn.equalsIgnoreCase(VnAnswer) || Vn.equalsIgnoreCase("1")) {
                     i++;
                     Point++;
                     if (Point % 4 == 0) {
@@ -163,10 +169,12 @@ public class TestController extends HttpServlet {
 
                         String State = (String) session.getAttribute("State");
                         session.setAttribute("Point", Point);
-                        if (State.equalsIgnoreCase("Random")) {
+                        if (State.equalsIgnoreCase("RandomNoDuplicate")) {
                             generateUniqueRandomNumbers(from, to, request, response);
                         } else if (State.equalsIgnoreCase("Linear")) {
                             generateLieanrNumbers(from, to, request, response);
+                        }else if(State.equalsIgnoreCase("RandomDuplicate")){
+                            generateDuplicateRandomNumbers(from, to, request, response);
                         }
                     } else {
                         request.setAttribute("i", i);
@@ -190,6 +198,21 @@ public class TestController extends HttpServlet {
 
         // Trộn danh sách để các số trở thành ngẫu nhiên
         Collections.shuffle(numbers);
+        HttpSession session = request.getSession();
+        session.setAttribute("index", numbers);
+
+        session.setAttribute("dictList", dictionaryList);
+        request.getRequestDispatcher("/Testing.jsp").forward(request, response);
+    }
+
+    public void generateDuplicateRandomNumbers(int from, int to, HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        List<Integer> numbers = new ArrayList<>();
+        for (int i = from; i <= to; i++) {
+            int random = (int) Math.floor(Math.random() * (to - from + 1)) + from;
+            numbers.add(random);
+        }
+
         HttpSession session = request.getSession();
         session.setAttribute("index", numbers);
 
