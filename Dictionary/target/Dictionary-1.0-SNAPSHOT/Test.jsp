@@ -22,8 +22,21 @@
                 }
             }
 
-            // Gọi hàm toggleRangeInputs() khi trang được tải
-            window.onload = toggleRangeInputs;
+            function toggleRandomInputs() {
+                var Random = document.getElementById("Random");
+                var randomType = document.getElementById("randomType");
+                if (Random.checked) {
+                    randomType.style.display = "block";
+                } else {
+                    randomType.style.display = "none";
+                }
+            }
+
+            // Gọi hàm toggleInputs() khi trang được tải
+            window.onload = function () {
+                toggleRangeInputs();
+                toggleRandomInputs();
+            };
         </script>
     </head>
     <body>
@@ -50,11 +63,15 @@
             <form action="Test" method="post">
                 <h4 class="mt-4">Type of Test:</h4>
                 <div class="form-check">
-                    <input type="radio" class="form-check-input" value="Random" name="typeTest" checked/>
+                    <input id="Random" type="radio" class="form-check-input" value="Random" name="typeTest" checked="checked" onclick="toggleRandomInputs()"/>
                     <label class="form-check-label">Random</label>
                 </div>
+                <div id="randomType" class="mt-3" style="display:none; margin-left: 20px;">
+                    <input type="radio" name="Duplicate" value="Duplicate" checked="checked"/> 1. Duplicates <br><!-- comment -->
+                    <input type="radio" name="Duplicate" value="noDuplicate"/> 2. No Duplicates <br>
+                </div>
                 <div class="form-check">
-                    <input type="radio" class="form-check-input" value="Linear" name="typeTest"/>
+                    <input type="radio" class="form-check-input" value="Linear" name="typeTest" onclick="toggleRandomInputs()"/>
                     <label class="form-check-label">Linear</label>
                 </div>
 
