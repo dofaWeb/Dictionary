@@ -92,7 +92,7 @@
             <input type='hidden' value="<%= dict.getId() %>" name='idTxt'/>
             <input type='submit' name='editBtn' value='Edit'/>
         </form>
-        <a href="/List">Back to List</a>
+        <a href="<%=request.getContextPath() %>/List">Back to List</a>
     </div>
 </body>
 </html>

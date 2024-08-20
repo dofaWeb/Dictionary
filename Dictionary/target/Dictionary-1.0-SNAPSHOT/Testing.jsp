@@ -27,7 +27,7 @@
     </head>
     <body>
         <div class="container mt-4">
-            <a href="/Test" class="btn btn-secondary mb-3">Back</a>
+            <a href="<%=request.getContextPath()%>/Test" class="btn btn-secondary mb-3">Back</a>
             <h1 class="mb-4">Test!</h1>
 
             <%
@@ -42,11 +42,11 @@
                 Dictionary dict = dictList.get(index.get(i) - 1);
             %>
 
-            <form action="Test" method="post">
+            <form action="<%=request.getContextPath()%>/Test" method="post">
                 <div class="text-right text-danger">
                     Your Point: ${sessionScope.Point}<br>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="engInput">English:</label>
                     <input type="text" class="form-control" id="engInput" value="<%= dict.getEng()%>" name="Eng" readonly/>
@@ -59,7 +59,7 @@
                 <input type="hidden" value="<%=i%>" name="i"/>
                 <input type="hidden" value="<%=dict.getVn()%>" name="VnAnswer"/>
 
-                
+
 
                 <input type="hidden" value="Testing" name="key"/>
                 <button type="submit" class="btn btn-primary" name="Check">Submit</button>

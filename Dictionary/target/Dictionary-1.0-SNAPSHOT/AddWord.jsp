@@ -101,7 +101,7 @@
             <input type="hidden" name="Word" value="AddWord"/>
             <input type="submit" name="Submit" value="Submit"/>
         </form>
-        <a href="/Dictionary"><button>Back to Home</button></a>
+        <a href="<%=request.getContextPath() %>/Dictionary"><button>Back to Home</button></a>
     </div>
 </body>
 </html>
