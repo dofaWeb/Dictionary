@@ -104,4 +104,5 @@
             <a href="<%=request.getContextPath()%>/Dictionary"><button>Back to Home</button></a>
         </div>
     </body>
+
 </html>

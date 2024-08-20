@@ -35,9 +35,11 @@
     <body>
         <div class="container">
             <h1>Web Dictionary</h1>
+
             <a href="<%=request.getContextPath()%>/Word/AddWord"><button class="btn btn-primary">Add a Word</button></a><br>
             <a href="<%=request.getContextPath()%>/List"><button class="btn btn-success">Show List</button></a><br>
             <a href="<%=request.getContextPath()%>/Test"><button class="btn btn-warning">Take a Test</button></a><br>
+
         </div>
     </body>
 </html>

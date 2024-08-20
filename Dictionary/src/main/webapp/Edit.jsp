@@ -72,7 +72,7 @@
     <body>
         <div class="container">
             <h1>Edit Word</h1>
-            <form action="<%=request.getContextPath() %>/Word" method='post'>
+            <form action="<%=request.getContextPath()%>/Word" method='post'>
                 <%
                     String Id = "";
                     Dictionary dict = new Dictionary();
@@ -95,4 +95,5 @@
             <a href="<%=request.getContextPath()%>/List">Back to List</a>
         </div>
     </body>
+
 </html>

@@ -42,7 +42,8 @@
                 Dictionary dict = dictList.get(index.get(i) - 1);
             %>
 
-            <form action="<%=request.getContextPath() %>/Test" method="post">
+            <form action="<%=request.getContextPath()%>/Test" method="post">
+
                 <div class="text-right text-danger">
                     Your Point: ${sessionScope.Point}<br>
                 </div>
