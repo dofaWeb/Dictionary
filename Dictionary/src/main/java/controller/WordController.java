@@ -63,20 +63,20 @@ public class WordController extends HttpServlet {
         String uri = request.getRequestURI();
         HttpSession session = request.getSession();
         if (uri.endsWith("/Word")) {
-            request.getRequestDispatcher("/Word.jsp").forward(request, response);
+            request.getRequestDispatcher(request.getContextPath() + "/Word.jsp").forward(request, response);
         } else if (uri.endsWith("/AddWord")) {
-            request.getRequestDispatcher("/AddWord.jsp").forward(request, response);
+            request.getRequestDispatcher(request.getContextPath() + "/AddWord.jsp").forward(request, response);
         }else if(uri.startsWith("/Word/Edit/")){
             String[] path = uri.split("/");
             String Id = path[path.length-1];
             request.setAttribute("EditWord", Id);
-            request.getRequestDispatcher("/Edit.jsp").forward(request, response);
+            request.getRequestDispatcher(request.getContextPath() + "/Edit.jsp").forward(request, response);
         }else if(uri.startsWith("/Word/Delete/")){
             String[] path = uri.split("/");
             String Id = path[path.length-1];
             DictionaryDAO dictDAO = new DictionaryDAO();
             dictDAO.delete(Id);
-            response.sendRedirect("/List");
+            response.sendRedirect(request.getContextPath() + "/List");
         }
     }
 
@@ -95,7 +95,7 @@ public class WordController extends HttpServlet {
         if (key!=null && key.equalsIgnoreCase("AddWord")) {
             AddWordPost(request, response);
 
-            request.getRequestDispatcher("/AddWord.jsp").forward(request, response);
+            request.getRequestDispatcher(request.getContextPath() + "/AddWord.jsp").forward(request, response);
         }
         if(request.getParameter("editBtn")!=null){
             String Eng = request.getParameter("engTxt");
@@ -104,7 +104,7 @@ public class WordController extends HttpServlet {
             Dictionary dict = new Dictionary(Eng, Vn, Integer.parseInt(Id));
             DictionaryDAO dictDAO = new DictionaryDAO();
             dictDAO.uppdate(dict);
-            response.sendRedirect("/List");
+            response.sendRedirect(request.getContextPath() + "/List");
         }
     }
 
