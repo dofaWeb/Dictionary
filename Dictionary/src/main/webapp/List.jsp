@@ -71,7 +71,8 @@
                             <td><%= dict.get(i - 1).getEng()%></td>
                             <td><%= dict.get(i - 1).getVn()%></td>
                             <td>
-                                <a href="<%=request.getContextPath() %>/Word/Edit/<%= dict.get(i - 1).getId()%>" class="btn btn-sm btn-primary">Edit</a>
+
+                                <a href="<%=request.getContextPath()%>/Word/Edit/<%= dict.get(i - 1).getId()%>" class="btn btn-sm btn-primary">Edit</a>
                                 <a onclick="return confirm('Are you sure?')" href="/Word/Delete/<%= dict.get(i - 1).getId()%>" class="btn btn-sm btn-danger">Delete</a>
                             </td>
                         </tr>
@@ -81,7 +82,9 @@
                     </tbody>
                 </table>
             </div>
-            <a class="btn btn-secondary" href="<%=request.getContextPath() %>/Dictionary">Back to Home</a>
+
+            <a class="btn btn-secondary" href="<%=request.getContextPath()%>/Dictionary">Back to Home</a>
+
         </div>
     </body>
 </html>

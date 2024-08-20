@@ -61,7 +61,7 @@ public class DictionaryController extends HttpServlet {
             throws ServletException, IOException {
         String uri = request.getRequestURI();
         if (uri.endsWith("/Dictionary")) {
-            request.getRequestDispatcher("/index.jsp").forward(request, response);
+            request.getRequestDispatcher(request.getContextPath() + "/index.jsp").forward(request, response);
         }
     }
 

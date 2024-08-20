@@ -57,7 +57,8 @@
             }
         %>
         <div class="container mt-4">
-            <a href="<%=request.getContextPath() %>/Dictionary" class="btn btn-secondary mb-3">Back</a>
+            <a href="<%=request.getContextPath()%>/Dictionary" class="btn btn-secondary mb-3">Back</a>
+
             <h1 class="mb-4">TEST</h1>
             <h2 class="text-danger">${requestScope.error}</h2>
             <form action="<%=request.getContextPath() %>/Test" method="post">

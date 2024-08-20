@@ -65,7 +65,7 @@ public class ListController extends HttpServlet {
         dictList = dictdao.getAllDictionary();
         if (uri.contains("List")) {
             request.setAttribute("dictList", dictList);
-            request.getRequestDispatcher("/List.jsp").forward(request, response);
+            request.getRequestDispatcher(request.getContextPath() + "/List.jsp").forward(request, response);
         }
     }
 

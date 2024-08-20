@@ -43,6 +43,7 @@
             %>
 
             <form action="<%=request.getContextPath()%>/Test" method="post">
+
                 <div class="text-right text-danger">
                     Your Point: ${sessionScope.Point}<br>
                 </div>
