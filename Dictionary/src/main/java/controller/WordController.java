@@ -63,17 +63,17 @@ public class WordController extends HttpServlet {
         String uri = request.getRequestURI();
         HttpSession session = request.getSession();
         if (uri.endsWith("/Word")) {
-            request.getRequestDispatcher(request.getContextPath() + "/Word.jsp").forward(request, response);
+            request.getRequestDispatcher("/Word.jsp").forward(request, response);
         } else if (uri.endsWith("/AddWord")) {
-            request.getRequestDispatcher(request.getContextPath() + "/AddWord.jsp").forward(request, response);
-        }else if(uri.startsWith("/Word/Edit/")){
+            request.getRequestDispatcher("/AddWord.jsp").forward(request, response);
+        } else if (uri.contains("/Word/Edit/")) {
             String[] path = uri.split("/");
-            String Id = path[path.length-1];
+            String Id = path[path.length - 1];
             request.setAttribute("EditWord", Id);
-            request.getRequestDispatcher(request.getContextPath() + "/Edit.jsp").forward(request, response);
-        }else if(uri.startsWith("/Word/Delete/")){
+            request.getRequestDispatcher("/Edit.jsp").forward(request, response);
+        } else if (uri.contains("/Word/Delete/")) {
             String[] path = uri.split("/");
-            String Id = path[path.length-1];
+            String Id = path[path.length - 1];
             DictionaryDAO dictDAO = new DictionaryDAO();
             dictDAO.delete(Id);
             response.sendRedirect(request.getContextPath() + "/List");
@@ -92,19 +92,19 @@ public class WordController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String key = request.getParameter("Word");
-        if (key!=null && key.equalsIgnoreCase("AddWord")) {
+        if (key != null && key.equalsIgnoreCase("AddWord")) {
             AddWordPost(request, response);
 
-            request.getRequestDispatcher(request.getContextPath() + "/AddWord.jsp").forward(request, response);
+            request.getRequestDispatcher("/AddWord.jsp").forward(request, response);
         }
-        if(request.getParameter("editBtn")!=null){
+        if (request.getParameter("editBtn") != null) {
             String Eng = request.getParameter("engTxt");
             String Vn = request.getParameter("vnTxt");
             String Id = request.getParameter("idTxt");
             Dictionary dict = new Dictionary(Eng, Vn, Integer.parseInt(Id));
             DictionaryDAO dictDAO = new DictionaryDAO();
             dictDAO.uppdate(dict);
-            response.sendRedirect(request.getContextPath() + "/List");
+            response.sendRedirect("/List");
         }
     }
 
@@ -115,7 +115,7 @@ public class WordController extends HttpServlet {
         if (!Eng.equals("") && !Vn.equals("")) {
             DictionaryDAO dictdao = new DictionaryDAO();
             dictdao.insertDictionary(new Dictionary(Eng, Vn));
-        }else {
+        } else {
             request.setAttribute("Add Word Error", "You need to fill both fileds to submit");
         }
     }

@@ -70,7 +70,7 @@ public class TestController extends HttpServlet {
             ArrayList<Dictionary> dictList = dictDAO.getAllDictionary();
             int n = dictList.size();
             request.setAttribute("size", n);
-            request.getRequestDispatcher(request.getContextPath() + "Test.jsp").forward(request, response);
+            request.getRequestDispatcher(request.getContextPath() + "/Test.jsp").forward(request, response);
         }
     }
 
@@ -103,7 +103,7 @@ public class TestController extends HttpServlet {
             if (typeTest == null || typeRange == null) {
                 request.setAttribute("error", "Invalid option!");
                 request.setAttribute("size", size);
-                request.getRequestDispatcher(request.getContextPath() + "/Test.jsp").forward(request, response);
+                request.getRequestDispatcher("/Test.jsp").forward(request, response);
             } else {
                 int from = 0;
                 int to = 0;
@@ -115,7 +115,7 @@ public class TestController extends HttpServlet {
                     if (rangeOption == null) {
                         request.setAttribute("error", "Invalid option!");
                         request.setAttribute("size", size);
-                        request.getRequestDispatcher(request.getContextPath() + "/Test.jsp").forward(request, response);
+                        request.getRequestDispatcher("/Test.jsp").forward(request, response);
                     }
                     if (rangeOption.equalsIgnoreCase("1")) {
                         from = Integer.parseInt(request.getParameter("from1"));
@@ -184,7 +184,7 @@ public class TestController extends HttpServlet {
                     request.setAttribute("error", "Vietnamese: " + VnAnswer);
                 }
                 session.setAttribute("Point", Point);
-                request.getRequestDispatcher(request.getContextPath() + "/Testing.jsp").forward(request, response);
+                request.getRequestDispatcher("/Testing.jsp").forward(request, response);
             }
         }
     }
@@ -202,7 +202,7 @@ public class TestController extends HttpServlet {
         session.setAttribute("index", numbers);
 
         session.setAttribute("dictList", dictionaryList);
-        request.getRequestDispatcher(request.getContextPath() + "/Testing.jsp").forward(request, response);
+        request.getRequestDispatcher("/Testing.jsp").forward(request, response);
     }
 
     public void generateDuplicateRandomNumbers(int from, int to, HttpServletRequest request, HttpServletResponse response)
@@ -217,7 +217,7 @@ public class TestController extends HttpServlet {
         session.setAttribute("index", numbers);
 
         session.setAttribute("dictList", dictionaryList);
-        request.getRequestDispatcher(request.getContextPath() + "/Testing.jsp").forward(request, response);
+        request.getRequestDispatcher("/Testing.jsp").forward(request, response);
     }
 
     public void generateLieanrNumbers(int from, int to, HttpServletRequest request, HttpServletResponse response)
@@ -230,7 +230,7 @@ public class TestController extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("index", numbers);
         session.setAttribute("dictList", dictionaryList);
-        request.getRequestDispatcher(request.getContextPath() + "/Testing.jsp").forward(request, response);
+        request.getRequestDispatcher("/Testing.jsp").forward(request, response);
     }
 
     /**

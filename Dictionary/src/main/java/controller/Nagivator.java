@@ -55,7 +55,7 @@ public class Nagivator extends HttpServlet {
     throws ServletException, IOException {
         String path = request.getRequestURI();
         if(path.equals("/")){
-            response.sendRedirect(request.getContextPath() + "/Dictionary");
+            response.sendRedirect("/Dictionary");
         }
     } 
 
